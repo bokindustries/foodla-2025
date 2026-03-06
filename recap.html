@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>r/FoodLosAngeles 2025 Year in Review</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0f0e0c;
+    --surface: #1a1814;
+    --surface2: #232018;
+    --gold: #e8b84b;
+    --gold-dim: #a07b25;
+    --cream: #f0e6d0;
+    --muted: #6b6354;
+    --accent-red: #c94040;
+    --accent-green: #4a7c5e;
+    --border: rgba(232, 184, 75, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  .wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .subreddit-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 78px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .main-title span {
+    color: var(--gold);
+    display: block;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .header-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 24px auto 0;
+  }
+
+  /* Category cards */
+  .category {
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--surface);
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .category:nth-child(1) { animation-delay: 0.05s; }
+  .category:nth-child(2) { animation-delay: 0.1s; }
+  .category:nth-child(3) { animation-delay: 0.15s; }
+  .category:nth-child(4) { animation-delay: 0.2s; }
+  .category:nth-child(5) { animation-delay: 0.25s; }
+  .category:nth-child(6) { animation-delay: 0.3s; }
+
+  .cat-header {
+    background: var(--surface2);
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cat-emoji {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .cat-desc {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  .cat-body {
+    padding: 28px;
+  }
+
+  /* Winner */
+  .winner-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .medal {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .medal-gold { background: rgba(232, 184, 75, 0.2); border: 1px solid var(--gold); }
+  .medal-silver { background: rgba(180, 180, 180, 0.12); border: 1px solid #888; }
+
+  .winner-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .winner-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.15;
+  }
+
+  .winner-name.silver {
+    font-size: 20px;
+    color: #ccc;
+  }
+
+  .winner-meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* Runner-ups */
+  .runners-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .runners-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .runner-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--cream);
+    opacity: 0.8;
+    transition: opacity 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+
+  .runner-pill:hover {
+    opacity: 1;
+    border-color: var(--gold-dim);
+  }
+
+  /* Special callout card */
+  .callout {
+    background: rgba(232, 184, 75, 0.06);
+    border: 1px solid rgba(232, 184, 75, 0.3);
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--cream);
+    font-style: italic;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .callout::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: var(--gold);
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  .callout-text { padding-left: 8px; }
+  .callout-attr {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* 2026 wishes section */
+  .wishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .wish-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .wish-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* Community moment */
+  .moment-quote {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--cream);
+    font-style: italic;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .footer strong {
+    color: var(--gold);
+  }
+
+  .divider-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    margin: 32px 0;
+    opacity: 0.4;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .winner-name { font-size: 22px; }
+    .cat-body { padding: 20px; }
+    .wishes-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <span class="subreddit-tag">r/FoodLosAngeles · Community Poll Results</span>
+    <h1 class="main-title">
+      Year in
+      <span>Review 2025</span>
+    </h1>
+    <p class="subtitle">Your votes. Your bites. Your city.</p>
+    <div class="header-rule"></div>
+  </div>
+
+  <div class="categories-list">
+
+    <!-- Best Bite -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-emoji">🥇</div>
+        <div>
+          <div class="cat-title">Best Bite of the Year</div>
+          <div class="cat-desc">Best single dish or item</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="winner-block">
+          <div class="medal medal-gold">🏆</div>
+          <div>
+            <div class="winner-label">Winners (3-way Tie)</div>
+            <div class="winner-name">Holbox</div>
+            <div class="winner-meta">Scallop Aguachile · Pulpo Taco · Kanpachi Tostada</div>
+          </div>
+        </div>
+        <div class="runners-label">Also loved</div>
+        <div class="runners-grid">
+          <div class="runner-pill">Spicy Tuna Hand Roll — Hama Sushi DTLA</div>
+          <div class="runner-pill">Chicken Sando (x-hot) — Howlin' Ray's</div>
+          <div class="runner-pill">Tomatoes w/ Anchovies — Quarter Sheets Cannonball</div>
+          <div class="runner-pill">Black Cod course — Providence</div>
+          <div class="runner-pill">Pork Spare Ribs — Ham Ji Park</div>
+          <div class="runner-pill">Mala Lamb Pizza — Pizzeria Sei</div>
+          <div class="runner-pill">Uni — Bui Sushi</div>
+          <div class="runner-pill">Dan Dan Noodles — Ding's Garden</div>
+          <div class="runner-pill">Sticky Date Pudding — Dunsmoor</div>
+          <div class="runner-pill">Moo Ping — Luv2eat</div>
+          <div class="runner-pill">Shrimp Taco — Marisco Jalisco</div>
+          <div class="runner-pill">Furikake Croissant — Baker's Bench</div>
+          <div class="runner-pill">Uka's Crab Ball — Owan</div>
+          <div class="runner-pill">Crunchwrap Lasagna — Estrano</div>
+          <div class="runner-pill">Sweet Potatoes — Budonoki</div>
+          <div class="runner-pill">Carolina Gold Rice — Dunsmoor</div>
+          <div class="runner-pill">Osteria Mozza Garganelli</div>
+          <div class="runner-pill">Crispy Pata — L.A. Chibugan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Best New Restaurant -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-emoji">🍽️</div>
+        <div>
+          <div class="cat-title">Best New Restaurant of 2025</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="winner-block">
+          <div class="medal medal-gold">🏆</div>
+          <div>
+            <div class="winner-label">Winners (Tied)</div>
+            <div class="winner-name">Restaurant Ki</div>
+          </div>
+        </div>
+        <div class="winner-block" style="margin-top: -8px;">
+          <div class="medal medal-gold">🏆</div>
+          <div>
+            <div class="winner-label">Winners (Tied)</div>
+            <div class="winner-name">Kurrypinch</div>
+          </div>
+        </div>
+        <div class="runners-label">Also nominated</div>
+        <div class="runners-grid">
+          <div class="runner-pill">KOJIMA</div>
+          <div class="runner-pill">Cannonball</div>
+          <div class="runner-pill">Little Fish Melrose Hill</div>
+          <div class="runner-pill">Hermon's</div>
+          <div class="runner-pill">Komal</div>
+          <div class="runner-pill">Lugya'h</div>
+          <div class="runner-pill">Greek Bistro</div>
+          <div class="runner-pill">Betsey</div>
+          <div class="runner-pill">Breadhead</div>
+          <div class="runner-pill">Somni</div>
+          <div class="runner-pill">Soma Suisan</div>
+          <div class="runner-pill">Tane Vegan Izakaya</div>
+          <div class="runner-pill">Badash Bakes</div>
+          <div class="runner-pill">Betty's</div>
+          <div class="runner-pill">Baby Bistro</div>
+          <div class="runner-pill">Rasarumah</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Best Food Experience -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-emoji">✨</div>
+        <div>
+          <div class="cat-title">Best Food Experience of 2025</div>
+          <div class="cat-desc">Pop-up, event, tasting menu, etc.</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="winner-block">
+          <div class="medal medal-gold">🏆</div>
+          <div>
+            <div class="winner-label">Winner</div>
+            <div class="winner-name">Providence Full Tasting Menu</div>
+            <div class="winner-meta">Kitchen Table</div>
+          </div>
+        </div>
+        <div class="runners-label">Also celebrated</div>
+        <div class="runners-grid">
+          <div class="runner-pill">Holbox Tasting Menu</div>
+          <div class="runner-pill">Kato & Dunsmoor Sunday Series</div>
+          <div class="runner-pill">Baroo Tasting Menu</div>
+          <div class="runner-pill">Smorgasburg Battle of the Burgers</div>
+          <div class="runner-pill">Kinkan's Summer Kaiseki</div>
+          <div class="runner-pill">Crab Night at Kinkan LA</div>
+          <div class="runner-pill">Yakitorigai @ Ayara Thai x Yakitoriguy</div>
+          <div class="runner-pill">Shibumi</div>
+          <div class="runner-pill">Somni Tasting Menu</div>
+          <div class="runner-pill">Semlor Pop-up at Colossus by Cecilia Tolone</div>
+          <div class="runner-pill">Connie and Ted's Dine LA</div>
+          <div class="runner-pill">Hand Rolls @ Temaki Society</div>
+          <div class="runner-pill">Lunch at Ca del Sole</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saddest Closure -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-emoji">😢</div>
+        <div>
+          <div class="cat-title">Saddest Restaurant Closure of 2025</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="winner-block">
+          <div class="medal medal-gold">💔</div>
+          <div>
+            <div class="winner-label">Most mourned</div>
+            <div class="winner-name">Here's Looking at You</div>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="callout-text">
+            Got to experience it once before it closed. RIP.
+            <span class="callout-attr">— community sentiment</span>
+          </div>
+        </div>
+        <div class="runners-label" style="margin-top:20px;">Also mourned</div>
+        <div class="runners-grid">
+          <div class="runner-pill">Helms Bakery</div>
+          <div class="runner-pill">Ham Ji Park</div>
+          <div class="runner-pill">Osteria Mozza</div>
+          <div class="runner-pill">Betseytown</div>
+          <div class="runner-pill">The Douglas Cheeseburger Hermons</div>
+          <div class="runner-pill">Cassia</div>
+          <div class="runner-pill">Macao Cafe</div>
+          <div class="runner-pill">The Reel In — Malibu</div>
+          <div class="runner-pill">Father's Office DTLA</div>
+          <div class="runner-pill">Frankies</div>
+          <div class="runner-pill">Max & Helen's</div>
+          <div class="runner-pill">The Toasted Bun</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorite Moment -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-emoji">💬</div>
+        <div>
+          <div class="cat-title">Favorite Moment on r/foodlosangeles 2025</div>
+          <div class="cat-desc">Post, comment thread, drama, meme...</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="runner-pill" style="margin-bottom:16px; width:fit-content; border-color: rgba(232,184,75,0.4); background: rgba(232,184,75,0.07); font-size: 15px; padding: 10px 16px;">
+          🏆 &nbsp;"An Honest Review" thread
+        </div>
+
+        <div class="callout">
+          <div class="callout-text">
+            Max & Helen's sharing that Instagram post recommending you use Taskrabbit to have someone wait in their 3+ hour line for you.
+            <span class="callout-attr">— beloved chaos</span>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:12px;">
+          <div class="callout-text">
+            That artist doing watercolor paintings of beloved Japanese and Korean spots in LA and posting them on the LA subs. Those were so nice! Also jumboxart!
+            <span class="callout-attr">— community member</span>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:12px;">
+          <div class="callout-text">
+            Every day on this subreddit is a goddamn fucking blessing. People should start more threads asking what the best burger is. That always goes well.
+            <span class="callout-attr">— the spirit of r/foodlosangeles</span>
+          </div>
+        </div>
+
+        <div class="runners-label" style="margin-top:20px;">Also mentioned</div>
+        <div class="runners-grid">
+          <div class="runner-pill">Yelling at the République owners</div>
+          <div class="runner-pill">Great White racism allegations</div>
+          <div class="runner-pill">The lunch specials post</div>
+          <div class="runner-pill">Tacos in Echo Park after the Dodgers won</div>
+          <div class="runner-pill">Lian Ta opening a new place</div>
+          <div class="runner-pill">Dinner meetups</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2026 Wishes -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-emoji">🔮</div>
+        <div>
+          <div class="cat-title">What You Want to See in 2026</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="wishes-grid">
+          <div class="wish-item"><div class="wish-dot"></div>More meetups &amp; dinner events</div>
+          <div class="wish-item"><div class="wish-dot"></div>More people engaging &amp; joining in</div>
+          <div class="wish-item"><div class="wish-dot"></div>Weekly top posts &amp; food event roundups</div>
+          <div class="wish-item"><div class="wish-dot"></div>Artisanal &amp; locally made packaged food reviews</div>
+          <div class="wish-item"><div class="wish-dot"></div>More mid-city &amp; westside events</div>
+          <div class="wish-item"><div class="wish-dot"></div>Good burrito rankings</div>
+          <div class="wish-item"><div class="wish-dot"></div>Small business highlights</div>
+          <div class="wish-item"><div class="wish-dot"></div>More exposés on shady restaurant practices</div>
+          <div class="wish-item"><div class="wish-dot"></div>Formally moderated breakfast burrito debate</div>
+          <div class="wish-item"><div class="wish-dot"></div>Japanese chains: fairly priced openings</div>
+          <div class="wish-item"><div class="wish-dot"></div>Any burger post, really</div>
+          <div class="wish-item"><div class="wish-dot"></div>More influencers getting called out</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <strong>r/FoodLosAngeles</strong> · 2025 Community Poll Results<br>
+    <span style="opacity:0.5; font-size: 11px;">compiled by the community, for the community</span>
+  </div>
+
+</div>
+</body>
+</html>

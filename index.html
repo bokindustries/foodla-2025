@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>r/FoodLosAngeles — Best Restaurants 2025</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0f0e0c;
+    --surface: #1a1814;
+    --surface2: #232018;
+    --gold: #e8b84b;
+    --gold-dim: #a07b25;
+    --gold-faint: rgba(232, 184, 75, 0.08);
+    --cream: #f0e6d0;
+    --muted: #6b6354;
+    --border: rgba(232, 184, 75, 0.15);
+    --bar-max: 46;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  .wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .subreddit-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--cream);
+  }
+
+  .main-title span { color: var(--gold); display: block; }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 14px;
+    font-style: italic;
+  }
+
+  .header-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 20px auto 0;
+  }
+
+  /* Scoring note */
+  .scoring-note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 0.05em;
+  }
+
+  .scoring-note span { color: var(--gold); }
+
+  /* Podium */
+  .podium {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 48px;
+    align-items: end;
+  }
+
+  .podium-place {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .podium-place::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(232,184,75,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .podium-place.first {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, rgba(232,184,75,0.12) 0%, var(--surface) 50%);
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .podium-place.second { border-color: rgba(192,192,192,0.35); padding-top: 22px; padding-bottom: 22px; }
+  .podium-place.third { border-color: rgba(180,120,60,0.35); padding-top: 8px; padding-bottom: 8px; }
+
+  .podium-rank {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .first .podium-rank { color: var(--gold); font-size: 15px; }
+  .second .podium-rank { color: #c0c0c0; }
+  .third .podium-rank { color: #b4783c; margin-bottom: 2px; }
+
+  .podium-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--cream);
+  }
+
+  .first .podium-name { font-size: 24px; }
+  .second .podium-name { font-size: 19px; }
+  .third .podium-name { font-size: 13px; line-height: 1.1; margin-bottom: 0; }
+
+  .podium-pts {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    margin-top: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .first .podium-pts { color: var(--gold); font-size: 13px; }
+  .second .podium-pts { color: #888; }
+  .third .podium-pts { color: #7a5a30; margin-top: 3px; font-size: 10px; }
+
+  /* Section label */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Ranked list */
+  .rank-list {
+    margin-bottom: 48px;
+  }
+
+  .rank-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 80px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(232,184,75,0.07);
+    animation: fadeIn 0.3s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .rank-row:hover { background: var(--gold-faint); margin: 0 -12px; padding: 10px 12px; border-radius: 2px; }
+
+  .rank-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .rank-main { display: flex; flex-direction: column; gap: 5px; }
+
+  .rank-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .rank-bar-wrap {
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .rank-bar {
+    height: 100%;
+    background: var(--gold-dim);
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .rank-pts {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* Tied group */
+  .tied-section {
+    margin-bottom: 40px;
+  }
+
+  .tied-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tied-pts {
+    color: var(--gold-dim);
+    margin-left: 8px;
+  }
+
+  .tied-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .tied-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--cream);
+    opacity: 0.85;
+    transition: opacity 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+
+  .tied-pill:hover { opacity: 1; border-color: var(--gold-dim); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .footer strong { color: var(--gold); }
+
+  @media (max-width: 560px) {
+    .podium { grid-template-columns: 1fr; align-items: stretch; }
+    .first .podium-name { font-size: 20px; }
+    .rank-row { grid-template-columns: 28px 1fr 56px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <span class="subreddit-tag">r/FoodLosAngeles · Community Rankings</span>
+    <h1 class="main-title">
+      Best Restaurants
+      <span>of 2025</span>
+    </h1>
+    <p class="subtitle">Ranked by community vote</p>
+    <div class="header-rule"></div>
+  </div>
+
+  <div class="scoring-note">
+    Voting method: top 5 picks &nbsp;·&nbsp; <span>#1 = 5 pts · #2 = 4 pts · #3 = 3 pts · #4 = 2 pts · #5 = 1 pt</span>
+  </div>
+
+  <!-- Podium -->
+  <div class="podium">
+    <div class="podium-place second">
+      <div class="podium-rank">🥈 #2</div>
+      <div class="podium-name">Providence</div>
+      <div class="podium-pts">18 pts</div>
+    </div>
+    <div class="podium-place first">
+      <div class="podium-rank">🏆 #1</div>
+      <div class="podium-name">Holbox</div>
+      <div class="podium-pts">46 pts</div>
+    </div>
+    <div class="podium-place third">
+      <div class="podium-rank">🥉 #3 (tied)</div>
+      <div class="podium-name">Quarter Sheets</div>
+      <div class="podium-name">Kato</div>
+      <div class="podium-name">Dunsmoor</div>
+      <div class="podium-pts">13 pts each</div>
+    </div>
+  </div>
+
+  <!-- Ranks 4–15 (unique scores) -->
+  <div class="rank-list">
+    <div class="section-label">Ranked · 4 through 15</div>
+
+    <div class="rank-row" style="animation-delay:0.04s">
+      <div class="rank-num">4</div>
+      <div class="rank-main">
+        <div class="rank-name">Pizzeria Sei</div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(11/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">11 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.07s">
+      <div class="rank-num">5</div>
+      <div class="rank-main">
+        <div class="rank-name">Hayato &nbsp;<span style="color:var(--muted);font-size:12px;font-weight:300">tied</span></div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(10/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">10 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.07s">
+      <div class="rank-num"></div>
+      <div class="rank-main">
+        <div class="rank-name">Komal &nbsp;<span style="color:var(--muted);font-size:12px;font-weight:300">tied</span></div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(10/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">10 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.1s">
+      <div class="rank-num">7</div>
+      <div class="rank-main">
+        <div class="rank-name">Kurrypinch &nbsp;<span style="color:var(--muted);font-size:12px;font-weight:300">tied</span></div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(9/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">9 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.1s">
+      <div class="rank-num"></div>
+      <div class="rank-main">
+        <div class="rank-name">Bavel &nbsp;<span style="color:var(--muted);font-size:12px;font-weight:300">tied</span></div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(9/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">9 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.13s">
+      <div class="rank-num">9</div>
+      <div class="rank-main">
+        <div class="rank-name">Restaurant Ki &nbsp;<span style="color:var(--muted);font-size:12px;font-weight:300">tied</span></div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(8/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">8 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.13s">
+      <div class="rank-num"></div>
+      <div class="rank-main">
+        <div class="rank-name">Baroo &nbsp;<span style="color:var(--muted);font-size:12px;font-weight:300">tied</span></div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(8/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">8 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.13s">
+      <div class="rank-num"></div>
+      <div class="rank-main">
+        <div class="rank-name">n/soto &nbsp;<span style="color:var(--muted);font-size:12px;font-weight:300">tied</span></div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(8/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">8 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.16s">
+      <div class="rank-num">12</div>
+      <div class="rank-main">
+        <div class="rank-name">Mariscos Jalisco</div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(7/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">7 pts</div>
+    </div>
+
+    <div class="rank-row" style="animation-delay:0.19s">
+      <div class="rank-num">13</div>
+      <div class="rank-main">
+        <div class="rank-name">Carmel</div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:calc(6/46*100%)"></div></div>
+      </div>
+      <div class="rank-pts">6 pts</div>
+    </div>
+  </div>
+
+  <!-- 5-point tied group -->
+  <div class="tied-section">
+    <div class="tied-header">5 points each <span class="tied-pts">· 20 restaurants</span></div>
+    <div class="tied-grid">
+      <div class="tied-pill">Tsujita Killer Noodle</div>
+      <div class="tied-pill">Hama Sushi DTLA</div>
+      <div class="tied-pill">Perle</div>
+      <div class="tied-pill">Found Oyster</div>
+      <div class="tied-pill">The Douglas</div>
+      <div class="tied-pill">Ayara Thai</div>
+      <div class="tied-pill">Salsa &amp; Beer</div>
+      <div class="tied-pill">Kinkan LA</div>
+      <div class="tied-pill">Osteria Mozza</div>
+      <div class="tied-pill">Lasung Rice Pot</div>
+      <div class="tied-pill">Bar Etoile</div>
+      <div class="tied-pill">Coucou</div>
+      <div class="tied-pill">Little Beast</div>
+      <div class="tied-pill">Si Mon</div>
+      <div class="tied-pill">La Chibugan</div>
+      <div class="tied-pill">Somni</div>
+      <div class="tied-pill">Ronan</div>
+      <div class="tied-pill">Miya Miya Shawarma</div>
+      <div class="tied-pill">Del Taco</div>
+      <div class="tied-pill">Comedor Tenchita</div>
+      <div class="tied-pill">Sapp Coffee Shop</div>
+    </div>
+  </div>
+
+  <!-- 4-point tied group -->
+  <div class="tied-section">
+    <div class="tied-header">4 points each <span class="tied-pts">· 24 restaurants</span></div>
+    <div class="tied-grid">
+      <div class="tied-pill">Leo's Tacos</div>
+      <div class="tied-pill">Ca Del Sole</div>
+      <div class="tied-pill">Kojima</div>
+      <div class="tied-pill">Tsubaki</div>
+      <div class="tied-pill">Wife and The Somm</div>
+      <div class="tied-pill">Bridgetown Roti</div>
+      <div class="tied-pill">Spicy BBQ</div>
+      <div class="tied-pill">Gol Tong Chicken</div>
+      <div class="tied-pill">Lugyah</div>
+      <div class="tied-pill">Gyu Kaku</div>
+      <div class="tied-pill">Henry's Cuisine</div>
+      <div class="tied-pill">Lulu</div>
+      <div class="tied-pill">Oy Bar</div>
+      <div class="tied-pill">Viet On Fletcher</div>
+      <div class="tied-pill">Sushi By Scratch Encino</div>
+      <div class="tied-pill">Kabob Village Glendale</div>
+      <div class="tied-pill">Gos Mart</div>
+      <div class="tied-pill">Mori Nozomi</div>
+      <div class="tied-pill">Be U</div>
+      <div class="tied-pill">Dialogue</div>
+      <div class="tied-pill">Chainsaw</div>
+      <div class="tied-pill">Mat</div>
+      <div class="tied-pill">Delizie Romane</div>
+      <div class="tied-pill">Taco Bell</div>
+      <div class="tied-pill">Baby Bistro</div>
+      <div class="tied-pill">Rasarumah</div>
+      <div class="tied-pill">Torisoba Sumiya</div>
+      <div class="tied-pill">Apollonia's Pizza</div>
+    </div>
+  </div>
+
+  <!-- 3-point tied group -->
+  <div class="tied-section">
+    <div class="tied-header">3 points each <span class="tied-pts">· 21 restaurants</span></div>
+    <div class="tied-grid">
+      <div class="tied-pill">Griddle Cafe</div>
+      <div class="tied-pill">Mariscos Za Za Zá</div>
+      <div class="tied-pill">Capri Club</div>
+      <div class="tied-pill">Verse</div>
+      <div class="tied-pill">Budonoki</div>
+      <div class="tied-pill">Eigikutei</div>
+      <div class="tied-pill">Tommy's</div>
+      <div class="tied-pill">Fat &amp; Flour</div>
+      <div class="tied-pill">The Benjamin</div>
+      <div class="tied-pill">Raffi's Place</div>
+      <div class="tied-pill">Doto</div>
+      <div class="tied-pill">Suwaron Tofu House</div>
+      <div class="tied-pill">Felix</div>
+      <div class="tied-pill">Nnaka</div>
+      <div class="tied-pill">Pasjoli</div>
+      <div class="tied-pill">El Pollo Peru</div>
+      <div class="tied-pill">Miya Thai</div>
+      <div class="tied-pill">Matu Kai</div>
+      <div class="tied-pill">Bread Head (Manhattan Beach)</div>
+      <div class="tied-pill">Luv2Eat</div>
+      <div class="tied-pill">Ding's Garden</div>
+      <div class="tied-pill">BJ's Restaurant &amp; Brewhouse</div>
+      <div class="tied-pill">Kismet</div>
+    </div>
+  </div>
+
+  <!-- 2-point tied group -->
+  <div class="tied-section">
+    <div class="tied-header">2 points each <span class="tied-pts">· 22 restaurants</span></div>
+    <div class="tied-grid">
+      <div class="tied-pill">Villas Tacos #1</div>
+      <div class="tied-pill">Kazu Nori</div>
+      <div class="tied-pill">Noshi Sushi</div>
+      <div class="tied-pill">Sam's Place</div>
+      <div class="tied-pill">Love Salt</div>
+      <div class="tied-pill">Liu's Cafe</div>
+      <div class="tied-pill">RVR</div>
+      <div class="tied-pill">Nat's Early Bite Coffee Shop</div>
+      <div class="tied-pill">Thien Huong</div>
+      <div class="tied-pill">Camphor</div>
+      <div class="tied-pill">Gjelina</div>
+      <div class="tied-pill">Taco Azteca</div>
+      <div class="tied-pill">Correas Mariscos &amp; Cocina</div>
+      <div class="tied-pill">Mala Class</div>
+      <div class="tied-pill">Mirate</div>
+      <div class="tied-pill">Hillstone</div>
+      <div class="tied-pill">Asanebo</div>
+      <div class="tied-pill">Cali Tandoor</div>
+      <div class="tied-pill">Seline</div>
+      <div class="tied-pill">Waka Sakura Gardena</div>
+      <div class="tied-pill">715 Sushi</div>
+      <div class="tied-pill">Mae Malais</div>
+      <div class="tied-pill">Le Draq</div>
+      <div class="tied-pill">Pizzana</div>
+      <div class="tied-pill">Miya on Lake</div>
+      <div class="tied-pill">Cento</div>
+      <div class="tied-pill">Old Sasoon Bakery</div>
+      <div class="tied-pill">Der Weinerschnitzel</div>
+      <div class="tied-pill">J Korean Restaurant</div>
+      <div class="tied-pill">Howlin' Ray's</div>
+    </div>
+  </div>
+
+  <!-- 1-point group -->
+  <div class="tied-section">
+    <div class="tied-header">1 point each <span class="tied-pts">· also received votes</span></div>
+    <div class="tied-grid">
+      <div class="tied-pill">Lucky Boys</div>
+      <div class="tied-pill">Royal Lobster</div>
+      <div class="tied-pill">Agnes Restaurant &amp; Cheeserie</div>
+      <div class="tied-pill">Brother's Cousins Tacos</div>
+      <div class="tied-pill">ORIGIN Korean BBQ</div>
+      <div class="tied-pill">Kitchen Mouse</div>
+      <div class="tied-pill">Mother Wolf</div>
+      <div class="tied-pill">Lasita</div>
+      <div class="tied-pill">Ototo</div>
+      <div class="tied-pill">In-N-Out Burger</div>
+      <div class="tied-pill">Mizlala</div>
+      <div class="tied-pill">Petit Trois</div>
+      <div class="tied-pill">Malena</div>
+      <div class="tied-pill">Panini Kabob Grill</div>
+      <div class="tied-pill">Saffys</div>
+      <div class="tied-pill">Hanbat Shul Lung Tang</div>
+      <div class="tied-pill">Dan Sung Sa</div>
+      <div class="tied-pill">Rustic Canyon</div>
+      <div class="tied-pill">Johnny's West Adams</div>
+      <div class="tied-pill">Hot Tongue</div>
+      <div class="tied-pill">Umenoya Ramen</div>
+      <div class="tied-pill">Damian</div>
+      <div class="tied-pill">Park's BBQ</div>
+      <div class="tied-pill">Vespertine</div>
+      <div class="tied-pill">Roots Indian Bistro</div>
+      <div class="tied-pill">Bacari</div>
+      <div class="tied-pill">Iki Ramen</div>
+      <div class="tied-pill">Tane Vegan Izakaya</div>
+      <div class="tied-pill">Mama Lu's Dumpling House</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>r/FoodLosAngeles</strong> · Best Restaurants 2025 · Community Rankings<br>
+    <span style="opacity:0.5; font-size: 11px;">compiled by the community, for the community</span>
+  </div>
+
+</div>
+</body>
+</html>
